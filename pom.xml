@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cat.proven</groupId>
+    <artifactId>api-example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>api-example</name>
+
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+   
+   <!-- glssfish repository --> 
+    <pluginRepositories>
+     <pluginRepository>
+       <id>m.g.o-groups-glassfish</id>
+       <url>http://maven.glassfish.org/content/groups/glassfish</url>
+     </pluginRepository>
+    </pluginRepositories>	
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.39</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+<!-- https://docs.oracle.com/cd/E19798-01/821-1754/gihus/index.html -->
+<!-- http://stackoverflow.com/questions/3123536/i-follow-this-maven-glassfish-plugin-example-but-error-message-why -->
+
+         <plugin>
+          <groupId>org.glassfish</groupId>
+          <artifactId>maven-embedded-glassfish-plugin</artifactId>
+          <version>3.0.1</version>
+          <configuration>
+<!-- http://stackoverflow.com/questions/2709190/maven-embedded-glassfish-plugin-how-to-set-the-temporary-directory -->
+	   <instanceRoot>${project.build.directory}</instanceRoot>
+           <goalPrefix>glassfish</goalPrefix>
+           <app>${project.build.directory}/${project.build.finalName}.war</app>
+           <autoDelete>true</autoDelete>
+           <port>8081</port>
+           <contextRoot>test</contextRoot>
+          </configuration>
+         </plugin>
+
+        </plugins>
+    </build>
+</project>
