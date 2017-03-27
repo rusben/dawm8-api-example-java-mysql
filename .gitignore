@@ -1,2 +1,9 @@
 target/
+
+#Ignore NetBeans files
 nb-configuration.xml
+
+#Ignore Eclipse files
+.project
+.classpath
+.settings/

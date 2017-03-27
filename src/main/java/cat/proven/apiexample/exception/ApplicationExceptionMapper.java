@@ -1,7 +1,6 @@
 
-package cat.proven.mappers;
+package cat.proven.apiexample.exception;
 
-import cat.proven.services.ApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
