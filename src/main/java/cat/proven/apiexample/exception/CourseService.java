@@ -1,10 +1,11 @@
 
-package cat.proven.services;
+package cat.proven.apiexample.exception;
 
-import cat.proven.entities.Course;
-import cat.proven.entities.Student;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import cat.proven.apiexample.entities.Course;
+import cat.proven.apiexample.entities.Student;
 
 /**
  *

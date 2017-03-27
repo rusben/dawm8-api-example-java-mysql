@@ -1,4 +1,4 @@
-package cat.proven.entities;
+package cat.proven.apiexample.entities;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
