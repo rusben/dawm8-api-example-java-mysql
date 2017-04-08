@@ -14,8 +14,8 @@ public class ConnectionFactory {
 	// init database constants
 	private static final String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/api-example-db";
-	private static final String USERNAME = "example";
-	private static final String PASSWORD = "example";
+	private static final String USERNAME = "root";
+	private static final String PASSWORD = "password";
 	private static final String MAX_POOL = "250";
 	private static ConnectionFactory instance;
 

@@ -1,5 +1,7 @@
 package cat.proven.apiexample.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -10,15 +12,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Course {
     private int id;
     private String name;
+    private List<Student> students;
 
     public Course() {
+        this.students = new ArrayList<Student>();
     }
 
     public Course(int id, String name) {
+        this();
         this.id = id;
         this.name = name;
     }
-
+    
     public int getId() {
         return id;
     }
@@ -35,5 +40,12 @@ public class Course {
         this.name = name;
     }
     
+    public List<Student> getStudents() {
+            return students;
+    }
+
+    public void setCourses(List<Student> students) {
+            this.students = students;
+    }
     
 }

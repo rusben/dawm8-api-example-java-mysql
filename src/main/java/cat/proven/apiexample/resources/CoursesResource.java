@@ -24,14 +24,14 @@ import cat.proven.apiexample.service.CourseService;
 import cat.proven.apiexample.service.StudentService;
 
 
-@Path("students")
+@Path("courses")
 @Produces("application/json")
-public class StudentsResource {
+public class CoursesResource {
 
     StudentService studentService;
     CourseService courseService;
 
-    public StudentsResource(@Context ServletContext context) {
+    public CoursesResource(@Context ServletContext context) {
 
         if (context.getAttribute("studentService") != null)
                 studentService = (StudentService) context.getAttribute("studentService");
@@ -46,93 +46,81 @@ public class StudentsResource {
                 courseService = new CourseService();
                 context.setAttribute("courseService", courseService);
         }
-
     }
 
     @GET
-    public Response students() {
-        Collection<Student> students = studentService.getStudents();
-        GenericEntity<Collection<Student>> result = new GenericEntity<Collection<Student>>(students) {
+    public Response courses() {
+        Collection<Course> courses = courseService.getCourses();
+        GenericEntity<Collection<Course>> result = new GenericEntity<Collection<Course>>(courses) {
         };
         return Response.ok().entity(result).build();
     }
 
     @Path("{id}")
     @GET
-    public Response getStudentById(@PathParam("id") int id) {
-        Student student = studentService.getStudentById(id);
-        if (student == null)
+    public Response getCourseById(@PathParam("id") int id) {
+        Course course = courseService.getCourseById(id);
+        if (course == null)
             return Response.status(Response.Status.NOT_FOUND).build();
         else
-            return Response.ok(student).build();
+            return Response.ok(course).build();
     }
 
     @POST
-    public Response addStudent(@FormParam("name") String name, @FormParam("lastname") String lastname) {
+    public Response addCourse(@FormParam("name") String name) {
 
         if (name == null || name.equals("")) {
             ApplicationException ex = new ApplicationException("Parameter name is mandatory");
             return Response.status(Response.Status.BAD_REQUEST).entity(ex).build();
         }
 
-        if (lastname == null || lastname.equals("")) {
-            ApplicationException ex = new ApplicationException("Parameter lastname is mandatory");
-            return Response.status(Response.Status.BAD_REQUEST).entity(ex).build();
-        }
-
-        Student student = studentService.addStudent(new Student(0, name, lastname));
-        return Response.ok(student).build();
+        Course course = courseService.addCourse(new Course(0, name));
+        return Response.ok(course).build();
     }
 
     @Path("{id}")
     @POST
-    public Response updateStudent(@FormParam("name") String name, @FormParam("lastname") String lastname, @PathParam("id") int id) {
+    public Response updateCourse(@FormParam("name") String name, @PathParam("id") int id) {
 
         if (name == null || name.equals("")) {
                 ApplicationException ex = new ApplicationException("Parameter name is mandatory");
                 return Response.status(Response.Status.BAD_REQUEST).entity(ex).build();
         }
 
-        if (lastname == null || lastname.equals("")) {
-                ApplicationException ex = new ApplicationException("Parameter lastname is mandatory");
-                return Response.status(Response.Status.BAD_REQUEST).entity(ex).build();
-        }
+        Course course = courseService.getCourseById(id);
 
-        Student student = studentService.getStudentById(id);
-
-        if (student == null)
+        if (course == null)
                 return Response.status(Response.Status.NOT_FOUND).build();
 
-        student.setName(name);
-        student.setLastname(lastname);
-        student = studentService.updateStudent(student);
+        course.setName(name);
+        course = courseService.updateCourse(course);
 
-        return Response.ok(student).build();
+        return Response.ok(course).build();
 
     }
 
     @DELETE
     @Path("{id}")
-    public Response deleteStudent(@PathParam("id") int id) {
-        Student student = studentService.getStudentById(id);
-        if (student == null)
+    public Response deleteCourse(@PathParam("id") int id) {
+        Course course = courseService.getCourseById(id);
+        if (course == null)
             return Response.status(Response.Status.NOT_FOUND).build();
         else {
-            studentService.deleteStudent(student);
-            return Response.ok(student).build();
+            courseService.deleteCourse(course);
+            return Response.ok(course).build();
         }
     }
 
-    @Path("{id}/courses")
+    @Path("{id}/students")
     @GET
-    public Response getStudentCourses(@PathParam("id") int id) {
-        List<Course> studentCourses = (List<Course>) studentService.getStudentCourses(id);
+    public Response getCourseStudents(@PathParam("id") int id) {
+        List<Student> courseStudents = (List<Student>) courseService.getCourseStudents(id);
 
-        if (studentCourses == null)
+        if (courseStudents == null)
                 return Response.status(Response.Status.NOT_FOUND).build();
         else {
 
-            GenericEntity<List<Course>> entity = new GenericEntity<List<Course>>(studentCourses) {
+            GenericEntity<List<Student>> entity = new GenericEntity<List<Student>>(courseStudents) {
             };
 
             return Response.ok().entity(entity).build();

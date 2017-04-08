@@ -4,7 +4,7 @@ package cat.proven.apiexample.exception;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class ApplicationException {
+public class ApplicationException extends Exception {
 
 	private String message;
 	private String exceptionType;
