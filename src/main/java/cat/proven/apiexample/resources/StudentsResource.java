@@ -152,8 +152,8 @@ public class StudentsResource {
         if (course == null)
                 return Response.status(Response.Status.NOT_FOUND).build();
 
-        student.getCourses().add(course);
-        return Response.ok().build();
+        Course c = studentService.addStudentToCourse(student, course);
+        return Response.ok(c).build();
     }
 
 }

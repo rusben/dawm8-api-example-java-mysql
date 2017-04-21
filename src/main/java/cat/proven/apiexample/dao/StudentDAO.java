@@ -109,6 +109,23 @@ public class StudentDAO {
 
     }
 
+    public Course addStudentToCourse(Student student, Course course) {
+        String sql = "INSERT INTO StudentCourse (`idStudent`, `idCourse`) VALUES (?,?)";
+
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(sql);
+            statement.setInt(1, student.getId());
+            statement.setInt(2, course.getId());
+            int rs = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return course;        
+
+    }
+
     public Student update(Student student) {
         String sql = "UPDATE Student SET `name` = ?, `lastname` = ? WHERE `Student`.`id` = ?";
 

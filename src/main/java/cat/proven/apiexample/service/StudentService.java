@@ -25,8 +25,8 @@ public class StudentService {
     }
     
     public Student getStudentById(int idStudent) {
-        Student s = studentDAO.findById(idStudent);
-        return s;
+        Student student = studentDAO.findById(idStudent);
+        return student;
     }
     
     public Student addStudent(Student student) {
@@ -58,6 +58,11 @@ public class StudentService {
         CourseService courseService = new CourseService();
         Collection<Course> courses = courseService.getCoursesByIdStudent(idStudent);
         return courses;
+    }
+
+    // http://stackoverflow.com/questions/6324547/how-to-handle-many-to-many-relationships-in-a-restful-api
+    public Course addStudentToCourse(Student student, Course course) {       
+        return studentDAO.addStudentToCourse(student, course);
     }
     
 }
